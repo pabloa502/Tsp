@@ -1,16 +1,6 @@
-import sys
 import matplotlib.pyplot as plt
-
-coorX = [0, 0.11736202, 0.27628735, 0.28207902, 0.74977408, 0.88130897,
- 0.69978883, 0.87362204, 0.32465918, 0.88724725, 0.88997274, 0.97811309,
- 0.43893032, 0.48178456, 0.82098924, 0.97124457, 0.73563341, 0.65355428,
- 0.70162914, 0.10381159]
-coorY = [0, 0.47338678, 0.71189566, 0.81025209, 0.79890109, 0.82899792,
- 0.27855368, 0.29881385, 0.14014837, 0.53078798, 0.52032261, 0.26988757,
- 0.18190966, 0.26782554, 0.6227169,  0.39425376, 0.90229357, 0.42857193,
- 0.22936497, 0.81217847]
-x = []
-y = []
+import math as m
+import numpy as np
 
 class BaseFile(object):
 	def __init__(self):
@@ -18,6 +8,7 @@ class BaseFile(object):
 	"""docstring for BaseFile"""
 	def file_get_contents(self, nameFile):
 		content = open(nameFile)
+		coor = []
 		print content.readline()
 		print content.readline()
 		print content.readline()
@@ -30,40 +21,62 @@ class BaseFile(object):
 			for line in fp:
 				if count <= int(dimension):
 					data = line.split(" ")
-					print data
-					x.append(float(data[1]))
-					y.append(float(data[2]))
+					coor.append([float(data[1]), float(data[2])])
 				count+=1
+		print coor
+		return coor
 
 class Tsp(object):
 	"""docstring for Tsp"""
 	def __init__(self):
 		super(Tsp, self).__init__()
-		self.city_position = 0
 		"""on plane coordinate"""
 		plt.ion()
 
-	def drawTsp(self, x, y):
+	def drawTsp(self, x, y, dt):
 		plt.cla()
 		"""scatter set point in the cordenates x,y"""
 		plt.scatter(x[:], y[:], s=100, c='k')
 		"""beeline with coordinate x, y"""
 		plt.plot(x, y, 'r-')
 		"""show text in coordinate plane"""
-		plt.text(-0.05, -0.05, "Total distance=%.2f" % 1, fontdict={'size': 14, 'color': 'green'})
+		plt.text(-max(x)/10, -max(x)/10, "Total distance=%.2f" % dt, fontdict={'size': 12, 'color': 'green'})
 		"""draw coordinate plane with x between -0.1,4 and y -0.1,4"""
 		plt.xlim((-max(x)/10, max(x)+(max(x)/10)))
 		plt.ylim((-max(x)/10, max(y)+(max(x)/10)))
 		plt.pause(0.01)
 
-	def buildRoute(self, coorX, coorY):
-		Tsp().drawTsp(coorX, coorY)
+	def buildRoute(self):
+		coorR = [coor.pop(0)]
+		dt = 0
+		while coor:
+			d, p2 = Tsp().nearestNeighbors(coorR[-1])
+			coorR.append(p2)
+		coorR.append(coorR[0])
+		coorR = np.array(coorR)
+		dt += d
+		Tsp().drawTsp(coorR[:,0], coorR[:,1], dt)
 		
-	def nearestNeighbors(self):
-		self
+	def nearestNeighbors(self, p1):
+		d = -1
+		pos = -1
+		i = 0
+		for item in coor[:]:
+			dTemp = Tsp().getDistance(p1, item)
+			if d == -1 or dTemp < d:
+				d = dTemp
+				pos = i
+			i += 1
 
-BaseFile().file_get_contents("berlin52.tsp")
-Tsp().buildRoute(x, y)
+		return d, coor.pop(pos)
+
+	def getDistance(self, p1, p2):
+		return m.hypot(p2[0] - p1[0], p2[1] - p1[1])
+
+coor = BaseFile().file_get_contents("linhp318.tsp")
+Tsp().buildRoute()
 """off plane coordinate"""
 plt.ioff()
 plt.show()
+
+"""show data conecting point in the order of the vector"""
