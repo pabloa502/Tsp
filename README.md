@@ -44,6 +44,8 @@ Run
 
 You can run of basic example with:
 
-* Make
-* Make nearest_neighbor
-* Make pilot
+```
+   Make
+   Make nearest_neighbor
+   Make pilot
+```
