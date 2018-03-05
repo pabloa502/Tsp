@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import math as m
 import numpy as np
+import sys
 
 class BaseFile(object):
 	def __init__(self):
@@ -73,7 +74,8 @@ class Tsp(object):
 	def getDistance(self, p1, p2):
 		return m.hypot(p2[0] - p1[0], p2[1] - p1[1])
 
-coor = BaseFile().getContent("berlin52.tsp")
+nameFile = "data/" + sys.argv[1]
+coor = BaseFile().getContent(nameFile)
 Tsp().buildRoute()
 """off plane coordinate"""
 plt.ioff()

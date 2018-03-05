@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import math as m
 import numpy as np
 import copy as cp
+import sys
 
 from anytree import Node, RenderTree  
 
@@ -72,8 +73,8 @@ class Tsp(object):
 		self.coorR = np.array(self.coorR)
 		self.drawTsp(self.coorR[:,0], self.coorR[:,1], self.d)
 		#print graph#
-		for pre, fill, node in RenderTree(coorBase):
-			print("%scoordinate:%s-length:%s-distance:%s" % (pre, node.name, len(node.coor), node.d))
+		#for pre, fill, node in RenderTree(coorBase):
+		#	print("%scoordinate:%s-distance:%s" % (pre, node.name, node.d))
 
 	def buildPilot(self, root, pilot):
 		root.children = []
@@ -129,9 +130,23 @@ class Tsp(object):
 	def getDistance(self, p1, p2):
 		return m.hypot(p2[0] - p1[0], p2[1] - p1[1])
 
-print "Lista de argumentos: ", sys.argv
-coor = BaseFile().getContent("berlin52.tsp")
-Tsp(2, 3, 1).buildRoute(coor)
+nameFile = "data/berlin52.tsp"
+breadth = 2
+depth = 3
+pilot = 1
+
+if len(sys.argv) > 1:
+	nameFile = "data/" + sys.argv[1]
+coor = BaseFile().getContent(nameFile)
+# optional parameter breadth, depth, pilot
+
+if len(sys.argv) > 2:
+	breadth = int(sys.argv[2])
+if len(sys.argv) > 3:
+	depth = int(sys.argv[3])
+if len(sys.argv) > 4:
+	pilot = int(sys.argv[4])
+Tsp(breadth, depth, pilot).buildRoute(coor)
 #off plane coordinate#
 plt.ioff()
 plt.show()
