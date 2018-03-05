@@ -73,8 +73,8 @@ class Tsp(object):
 		self.coorR = np.array(self.coorR)
 		self.drawTsp(self.coorR[:,0], self.coorR[:,1], self.d)
 		#print graph#
-		#for pre, fill, node in RenderTree(coorBase):
-		#	print("%scoordinate:%s-distance:%s" % (pre, node.name, node.d))
+		for pre, fill, node in RenderTree(coorBase):
+			print("%scoordinate:%s-distance:%s" % (pre, node.name, node.d))
 
 	def buildPilot(self, root, pilot):
 		root.children = []

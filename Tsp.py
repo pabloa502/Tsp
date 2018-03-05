@@ -74,7 +74,9 @@ class Tsp(object):
 	def getDistance(self, p1, p2):
 		return m.hypot(p2[0] - p1[0], p2[1] - p1[1])
 
-nameFile = "data/" + sys.argv[1]
+nameFile = "data/berlin52.tsp"
+if len(sys.argv) > 1:
+	nameFile = "data/" + sys.argv[1]
 coor = BaseFile().getContent(nameFile)
 Tsp().buildRoute()
 """off plane coordinate"""
