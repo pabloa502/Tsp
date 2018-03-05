@@ -6,7 +6,7 @@ class BaseFile(object):
 	def __init__(self):
 		super(BaseFile, self).__init__()
 	"""docstring for BaseFile"""
-	def file_get_contents(self, nameFile):
+	def getContent(self, nameFile):
 		content = open(nameFile)
 		coor = []
 		print content.readline()
@@ -50,19 +50,19 @@ class Tsp(object):
 		coorR = [coor.pop(0)]
 		dt = 0
 		while coor:
-			d, p2 = Tsp().nearestNeighbors(coorR[-1])
+			d, p2 = self.nearestNeighbors(coorR[-1])
+			dt += d
 			coorR.append(p2)
 		coorR.append(coorR[0])
 		coorR = np.array(coorR)
-		dt += d
-		Tsp().drawTsp(coorR[:,0], coorR[:,1], dt)
+		self.drawTsp(coorR[:,0], coorR[:,1], dt)
 		
 	def nearestNeighbors(self, p1):
 		d = -1
 		pos = -1
 		i = 0
 		for item in coor[:]:
-			dTemp = Tsp().getDistance(p1, item)
+			dTemp = self.getDistance(p1, item)
 			if d == -1 or dTemp < d:
 				d = dTemp
 				pos = i
@@ -73,10 +73,8 @@ class Tsp(object):
 	def getDistance(self, p1, p2):
 		return m.hypot(p2[0] - p1[0], p2[1] - p1[1])
 
-coor = BaseFile().file_get_contents("linhp318.tsp")
+coor = BaseFile().getContent("berlin52.tsp")
 Tsp().buildRoute()
 """off plane coordinate"""
 plt.ioff()
 plt.show()
-
-"""show data conecting point in the order of the vector"""

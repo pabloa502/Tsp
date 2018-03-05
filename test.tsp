@@ -1,13 +1,18 @@
-NAME: berlin52
+NAME: test
 TYPE: TSP
-COMMENT: 52 locations in Berlin (Groetschel)
-DIMENSION: 5
+COMMENT: 10 locations in Berlin (Groetschel)
+DIMENSION: 10
 EDGE_WEIGHT_TYPE: EUC_2D
 NODE_COORD_SECTION
-1 600.1 700.1
-2 25.0 50.0
-3 900.0 900.0
-4 945.0 500.0
-5 700.0 700.0
+1 1 1
+2 2 2
+3 3 3
+4 4 4
+5 5 5
+6 6 6
+7 7 7
+8 8 8
+9 9 9
+10 10 10
 EOF
 
