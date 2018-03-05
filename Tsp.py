@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import math as m
 import numpy as np
 import sys
+import datetime as date
 
 class BaseFile(object):
 	def __init__(self):
@@ -48,6 +49,8 @@ class Tsp(object):
 		plt.pause(0.01)
 
 	def buildRoute(self):
+		#print date init#
+		print "init date: " + str(date.datetime.now())
 		coorR = [coor.pop(0)]
 		dt = 0
 		while coor:
@@ -57,6 +60,8 @@ class Tsp(object):
 		coorR.append(coorR[0])
 		coorR = np.array(coorR)
 		self.drawTsp(coorR[:,0], coorR[:,1], dt)
+		#print date end#
+		print "end date: " + str(date.datetime.now())
 		
 	def nearestNeighbors(self, p1):
 		d = -1

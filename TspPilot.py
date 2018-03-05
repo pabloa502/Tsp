@@ -3,6 +3,7 @@ import math as m
 import numpy as np
 import copy as cp
 import sys
+import datetime as dt
 
 from anytree import Node, RenderTree  
 
@@ -61,6 +62,8 @@ class Tsp(object):
 		plt.pause(0.01)
 
 	def buildRoute(self, coor):
+		#print date init#
+		print "init date: " + str(dt.datetime.now())
 		#create root node #
 		coorBase = TspNode(coor.pop(0))
 		#copy coodenates #
@@ -72,6 +75,8 @@ class Tsp(object):
 		#transform coordinates to print#
 		self.coorR = np.array(self.coorR)
 		self.drawTsp(self.coorR[:,0], self.coorR[:,1], self.d)
+		#print date end#
+		print "end date: " + str(dt.datetime.now())
 		#print graph#
 		for pre, fill, node in RenderTree(coorBase):
 			print("%scoordinate:%s-distance:%s" % (pre, node.name, node.d))
