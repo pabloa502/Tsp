@@ -16,7 +16,7 @@ Install for linux
 -------
 
 ```
-   make install
+   sudo make install
 ```
 
 ### Testing
