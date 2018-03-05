@@ -1,6 +1,6 @@
 # Tsp
 
-Camilo Rodríguez and Jonathan Prieto-Cubides
+Camilo Andrés Rodríguez Garzón
 
 This is an implementation of the TSP problem, this is solved with a couple of methods such as the nearest neighbor and the pilot method.
 
